@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tareas - UMB Taller</title>
+</head>
+<body>
+
+  <h1>Lista de Tareas</h1>
+
+  <ul id="lista-tareas"></ul>
+
+  <form id="form-tarea">
+    <input type="text" id="titulo" placeholder="Nueva tarea..." required />
+    <button type="submit">Agregar</button>
+  </form>
+
+  <script>
+    const API_URL = "https://umb-web-taller-n3ty.onrender.com/index.php";
+
+    async function cargarTareas() {
+      const res = await fetch(API_URL);
+      const tareas = await res.json();
+      const lista = document.getElementById("lista-tareas");
+      lista.innerHTML = "";
+
+      tareas.forEach((t) => {
+        const li = document.createElement("li");
+        li.textContent = `${t.id}: ${t.titulo}`;
+        lista.appendChild(li);
+      });
+    }
+
+    document.getElementById("form-tarea").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const titulo = document.getElementById("titulo").value.trim();
+      if (!titulo) return alert("Escribe algo.");
+
+      await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ titulo }),
+      });
+
+      document.getElementById("titulo").value = "";
+      cargarTareas();
+    });
+
+    cargarTareas();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fundamentos Web</title>
+  <link rel="stylesheet" href="estilos.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <header>
+    <h1>Fundamentos de Desarrollo Web</h1>
+  </header>
+
+  <section class="contenido">
+    <p>Este es un ejemplo de HTML semántico usando <code>flexbox</code> para el diseño.</p>
+    <button onclick="mostrarPrioridad(2)">Mostrar Prioridad</button>
+    <button onclick="sumarSaltandoSeis()">Sumar números (saltando el 6)</button>
+  </section>
+
+  <footer>
+    <p>© 2025 - Ejemplo de fundamentos web</p>
+  </footer>
+
+  <script>
+    function mostrarPrioridad(prioridad) {
+      let mensaje;
+      switch (prioridad) {
+        case 1:
+          mensaje = "Prioridad Alta";
+          break;
+        case 2:
+          mensaje = "Prioridad Media";
+          break;
+        case 3:
+          mensaje = "Prioridad Baja";
+          break;
+        default:
+          mensaje = "Prioridad desconocida";
+      }
+      alert(mensaje);
+    }
+
+    function sumarSaltandoSeis() {
+      let suma = 0;
+      for (let i = 1; i <= 10; i++) {
+        if (i === 6) continue;
+        suma += i;
+      }
+      alert("La suma (sin incluir el 6) es: " + suma);
+    }
+  </script>
+
+</body>
+</html>

@@ -4,7 +4,7 @@ $host = "aws-1-us-east-1.pooler.supabase.com";
 $port = "5432";
 $dbname = "postgres";
 $user = "postgres.nhahulwdintyfzbbhzcg";
-$password = "o7enJsZR4f8Hv0wn"; // solo el texto, sin corchetes ni comillas raras
+$password = "o7enJsZR4f8Hv0wn";
 
 try {
     $conexion = new PDO(
@@ -16,11 +16,10 @@ try {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]
     );
-
-    echo "Conexión exitosa a Supabase usando pooler.";
+    // NADA AQUÍ. SIN echo, SIN texto. 
 } catch (PDOException $e) {
-    echo "Error al conectar: " . $e->getMessage();
-    exit();
+    // Aquí sí, porque no hay conexión y debes retornar algo
+    die(json_encode(["error" => "Error al conectar: " . $e->getMessage()]));
 }
 
 ?>

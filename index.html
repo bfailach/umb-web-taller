@@ -1,54 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tareas - UMB Taller</title>
+    <meta charset="UTF-8">
+    <title>Gestor de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+        }
+        #tareas {
+            margin-top: 1rem;
+        }
+        li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
 
-  <h1>Lista de Tareas</h1>
+<h1>Gestor de Tareas</h1>
 
-  <ul id="lista-tareas"></ul>
+<form id="form-tarea">
+    <input type="text" id="titulo" placeholder="Nueva tarea..." required>
+    <button type="submit">Crear</button>
+</form>
 
-  <form id="form-tarea">
-    <input type="text" id="titulo" placeholder="Nueva tarea..." required />
-    <button type="submit">Agregar</button>
-  </form>
+<ul id="tareas"></ul>
 
-  <script>
-    const API_URL = "https://umb-web-taller-n3ty.onrender.com/index.php";
+<script>
+    const API_URL = "https://umb-web-taller-n3ty.onrender.com/";
 
     async function cargarTareas() {
-      const res = await fetch(API_URL);
-      const tareas = await res.json();
-      const lista = document.getElementById("lista-tareas");
-      lista.innerHTML = "";
+        try {
+            const res = await fetch(API_URL);
+            const tareas = await res.json();
 
-      tareas.forEach((t) => {
-        const li = document.createElement("li");
-        li.textContent = `${t.id}: ${t.titulo}`;
-        lista.appendChild(li);
-      });
+            const lista = document.getElementById("tareas");
+            lista.innerHTML = tareas.map(t => `<li>${t.titulo}</li>`).join("");
+        } catch (error) {
+            console.error("Error cargando tareas:", error);
+        }
     }
 
     document.getElementById("form-tarea").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const titulo = document.getElementById("titulo").value.trim();
-      if (!titulo) return alert("Escribe algo.");
+        e.preventDefault();
 
-      await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ titulo }),
-      });
+        const titulo = document.getElementById("titulo").value.trim();
+        if (!titulo) return;
 
-      document.getElementById("titulo").value = "";
-      cargarTareas();
+        await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ titulo })
+        });
+
+        document.getElementById("titulo").value = "";
+        cargarTareas();
     });
 
     cargarTareas();
-  </script>
+</script>
 
 </body>
 </html>

@@ -16,9 +16,7 @@ try {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]
     );
-    // NADA AQUÍ. SIN echo, SIN texto. 
 } catch (PDOException $e) {
-    // Aquí sí, porque no hay conexión y debes retornar algo
     die(json_encode(["error" => "Error al conectar: " . $e->getMessage()]));
 }
 

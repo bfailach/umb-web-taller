@@ -5,7 +5,8 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 header("Content-Type: application/json; charset=utf-8");
 
-require_once 'modelo.php';
+// Ruta corregida hacia la carpeta api
+require_once __DIR__ . '/api/modelo.php';
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 
@@ -30,7 +31,6 @@ switch ($metodo) {
             }
 
             crearTarea($datos['titulo']);
-
             echo json_encode(['mensaje' => 'Tarea creada correctamente']);
 
         } catch (Exception $e) {

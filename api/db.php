@@ -1,10 +1,10 @@
 <?php
 
-$host = "aws-0-us-east-1.pooler.supabase.com"; // ← HOST IPv4 CORRECTO
+$host = "aws-1-us-east-1.pooler.supabase.com";
 $port = "5432";
 $dbname = "postgres";
-$user = "postgres";
-$password = "[8th6ei5bbOVNKCLO]";
+$user = "postgres.nhahulwdintyfzbbhzcg";
+$password = "o7enJsZR4f8Hv0wn"; // solo el texto, sin corchetes ni comillas raras
 
 try {
     $conexion = new PDO(
@@ -17,7 +17,7 @@ try {
         ]
     );
 
-    echo "Conexión exitosa a Supabase";
+    echo "Conexión exitosa a Supabase usando pooler.";
 } catch (PDOException $e) {
     echo "Error al conectar: " . $e->getMessage();
     exit();
